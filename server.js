@@ -45,6 +45,23 @@ app.get("/notes", function(req, res) {
     })
   });
 
+  app.delete("/api/notes/:id",(req,res)=>{
+    let deleteNote = (parseInt(req.params.id)-1);
+    console.log(deleteNote)
+    let notes = JSON.parse(fs.readFileSync(path.join(__dirname, "/Public/db.json"), "utf-8"));
+    notes.splice(deleteNote,1);
+    let i = 1;
+    notes.forEach(note=>{
+      note.id = i;
+      i++;
+       });
+    fs.writeFile(path.join(__dirname,"/Public/db.json"), JSON.stringify(notes),function (err){
+      if (err) throw err;
+      res.json(true);
+      return res.end();
+  })
+  });
+
   //---starting server
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
