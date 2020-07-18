@@ -21,10 +21,6 @@ app.get("/notes", function(req, res) {
     res.sendFile(path.join(__dirname, "db.json"));
   });
 
-  app.get("/api/notes", function(req, res) {
-    res.json(tableData);
-  });
-
   //---starting server
   app.listen(PORT, function() {
     console.log("App listening on PORT " + PORT);
